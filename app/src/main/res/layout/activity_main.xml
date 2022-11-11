@@ -70,7 +70,7 @@
     <Button
         android:id="@+id/button10"
         android:layout_width="199dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="40dp"
         android:onClick="toBroadcast"
         android:text="Send Broadcast"
@@ -82,7 +82,7 @@
     <Button
         android:id="@+id/button11"
         android:layout_width="201dp"
-        android:layout_height="46dp"
+        android:layout_height="48dp"
         android:layout_marginTop="4dp"
         android:onClick="toService"
         android:text="Create Service"
@@ -94,8 +94,9 @@
     <Button
         android:id="@+id/button"
         android:layout_width="201dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:layout_marginTop="4dp"
+        android:onClick="onContent"
         android:text="Create Content"
         app:layout_constraintEnd_toEndOf="@+id/button11"
         app:layout_constraintHorizontal_bias="0.444"
