@@ -7,17 +7,25 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.project_1.contentProvider.UserContentProvider;
 import com.example.project_1.db.UserDataBase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class ContentActivity extends AppCompatActivity {
 
     private EditText etName, etPhone;
-    private TextView tvDisplay;
+    private ListView llDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +33,8 @@ public class ContentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_content);
         etName = findViewById(R.id.etName);
         etPhone = findViewById(R.id.etPhone);
-        tvDisplay = findViewById(R.id.tvDisplay);
+        llDisplay = findViewById(R.id.llDisplay);
+        registerForContextMenu(llDisplay);
         onShow();
     }
 
@@ -47,13 +56,21 @@ public class ContentActivity extends AppCompatActivity {
     public void onShow(){
         Uri uri = UserContentProvider.CONTENT_URI;
         Cursor cursor = this.getContentResolver().query(uri, null, null, null, null);
-        StringBuilder builder = new StringBuilder();
+        List<Map<String, String>> list = new ArrayList<>();
         while (cursor.moveToNext()){
-            builder.append(cursor.getString(0)).append(", ")
-                    .append(cursor.getString(1)).append(", ")
-                    .append(cursor.getString(2))
-                    .append("\n");
+//            list.add(new StringBuilder().append("Id: ").append().append("\n")
+//                    .append("Name: ").append().append("\n")
+//                    .append("Ph No: ").append().toString());
+            HashMap<String, String> item = new HashMap<>();
+            item.put( "line1", cursor.getString(1));
+            item.put( "line2", "ID: "+cursor.getString(0));
+            item.put( "line3", "PHONE: "+cursor.getString(2));
+            list.add(item);
         }
-        tvDisplay.setText(builder.toString());
+        SimpleAdapter sa = new SimpleAdapter(this, list,
+                R.layout.multiline_list_view,
+                new String[]{"line1", "line2", "line3"},
+                new int[]{R.id.line_name, R.id.line_id, R.id.line_ph});
+        llDisplay.setAdapter(sa);
     }
 }

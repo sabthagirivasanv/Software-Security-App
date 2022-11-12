@@ -41,7 +41,10 @@ public class ServiceActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        unregisterReceiver(serviceMessageReceiver);
+        if(isRunning){
+            isRunning = false;
+            unregisterReceiver(serviceMessageReceiver);
+        }
         super.onStop();
     }
 
