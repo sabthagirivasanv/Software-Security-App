@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onContent(View view) {
-
-        Toast.makeText(this, "Content to show Contacts. WIP", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ContentActivity.class);
+        startActivity(intent);
     }
 
     public void toBroadcast(View view) {
